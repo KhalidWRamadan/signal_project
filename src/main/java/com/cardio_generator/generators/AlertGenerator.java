@@ -4,16 +4,49 @@ package com.cardio_generator.generators;
 import com.cardio_generator.outputs.OutputStrategy;
 import java.util.Random;
 
+/**
+ * The {@code AlertGenerator} class is responsible for simulating spontaneous
+ * medical alerts
+ * for patients within the system. It periodically generates triggered and
+ * resolved alert states
+ * using basic probabilistic models, outputting these events via a specified
+ * {@link OutputStrategy}.
+ */
 public class AlertGenerator implements PatientDataGenerator {
 
+    /**
+     * Shared random number generator utilized for determining alert probabilities.
+     */
     public static final Random randomGenerator = new Random();
+
     // Changed variable name to camelCase
+    /**
+     * Tracks the current alert state for each patient by ID.
+     * {@code false} indicates the alert is resolved or inactive. {@code true}
+     * indicates an active alert.
+     */
     private boolean[] alertStates; // false = resolved, true = pressed
 
+    /**
+     * Constructs a new {@code AlertGenerator} and initializes the alert states for
+     * the given number of patients.
+     * 
+     * @param patientCount the total number of patients being monitored.
+     */
     public AlertGenerator(int patientCount) {
         alertStates = new boolean[patientCount + 1];
     }
 
+    /**
+     * Simulates the alert lifecycle (triggering or resolving an alert) for a
+     * specific patient
+     * and dispatches the alert event to the provided output strategy.
+     *
+     * @param patientId      the unique integer identifier of the patient to
+     *                       evaluate for an alert.
+     * @param outputStrategy the {@link OutputStrategy} used to output the generated
+     *                       alert data.
+     */
     @Override
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
