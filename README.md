@@ -12,6 +12,18 @@ The Cardio Data Simulator is a Java-based application designed to simulate real-
 - Configurable patient count and data generation rate.
 - Randomized patient ID assignment for simulated data diversity.
 
+## CHMS UML Models
+
+As part of the CHMS system design assignment, four UML class diagrams have been created to model key subsystems. These diagrams focus on modularity, clear class responsibilities, and separation of concerns to support a realistic, safety-critical hospital environment.
+
+- **[UML Documentation & Rationale](uml_models/UML_Documentation.md):** Contains the design rationale and architectural choices for each of the four subsystems.
+- **[Alert Generation System](uml_models/AlertGenerationSystem.png):** Models real-time vitals evaluation and threshold management.
+- **[Data Storage System](uml_models/DataStorageSystem.png):** Models secure data storage, access control, and retention policies.
+- **[Patient Identification System](uml_models/PatientIdentificationSystem.png):** Models patient ID matching and anomaly handling.
+- **[Data Access Layer](uml_models/DataAccessLayer.png):** Models abstract data listeners, parsing, and storage routing.
+
+All models and their PlantUML source files can be found in the [`uml_models`](uml_models/) directory.
+
 ## Getting Started
 
 ### Prerequisites

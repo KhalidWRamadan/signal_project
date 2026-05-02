@@ -53,6 +53,7 @@ Thumbs.db
 *.zip
 *.tar.gz
 *.rar
+*.puml
 hs_err_pid*
 
 ### Local development ###
