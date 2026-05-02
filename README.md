@@ -24,6 +24,12 @@ As part of the CHMS system design assignment, four UML class diagrams have been 
 
 All models and their PlantUML source files can be found in the [`uml_models`](uml_models/) directory.
 
+## Testing & Code Coverage
+
+The CHMS data management and alert generation logic has been rigorously verified using JUnit 5. A modular Strategy Pattern was applied to the Alert generation rules to ensure isolated, edge-case tested, and highly maintainable logic.
+
+To view the unit test execution verification and the JaCoCo Code Coverage report breakdown (including explanations for un-tested simulated components), please read the **[Task 3 Testing Report](task3_reports/REPORT.md)**.
+
 ## Getting Started
 
 ### Prerequisites
