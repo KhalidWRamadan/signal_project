@@ -1,12 +1,16 @@
 package com.alerts.strategies;
 
 import com.alerts.Alert;
+import com.alerts.factories.AlertFactory;
+import com.alerts.factories.ECGAlertFactory;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 import java.util.List;
 
 public class ECGStrategy implements AlertStrategy {
+
+    private AlertFactory factory = new ECGAlertFactory();
 
     @Override
     public Alert checkAlert(Patient patient) {
@@ -35,7 +39,7 @@ public class ECGStrategy implements AlertStrategy {
         
         // Let's define "far beyond" as a 50% deviation from the sliding window average
         if (Math.abs(lastRecord.getMeasurementValue() - average) > (0.5 * average)) {
-             return new Alert(String.valueOf(patient.getPatientId()), "Abnormal ECG Data", lastRecord.getTimestamp());
+             return factory.createAlert(String.valueOf(patient.getPatientId()), "Abnormal ECG Data", lastRecord.getTimestamp());
         }
 
         return null;

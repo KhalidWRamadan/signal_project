@@ -1,12 +1,16 @@
 package com.alerts.strategies;
 
 import com.alerts.Alert;
+import com.alerts.factories.AlertFactory;
+import com.alerts.factories.BloodPressureAlertFactory;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 import java.util.List;
 
 public class BloodPressureStrategy implements AlertStrategy {
+
+    private AlertFactory factory = new BloodPressureAlertFactory();
 
     @Override
     public Alert checkAlert(Patient patient) {
@@ -37,13 +41,13 @@ public class BloodPressureStrategy implements AlertStrategy {
         if (!sysRecords.isEmpty()) {
             PatientRecord lastSys = sysRecords.get(sysRecords.size() - 1);
             if (lastSys.getMeasurementValue() > 180 || lastSys.getMeasurementValue() < 90) {
-                return new Alert(String.valueOf(patientId), "Critical Systolic Pressure", lastSys.getTimestamp());
+                return factory.createAlert(String.valueOf(patientId), "Critical Systolic Pressure", lastSys.getTimestamp());
             }
         }
         if (!diaRecords.isEmpty()) {
             PatientRecord lastDia = diaRecords.get(diaRecords.size() - 1);
             if (lastDia.getMeasurementValue() > 120 || lastDia.getMeasurementValue() < 60) {
-                return new Alert(String.valueOf(patientId), "Critical Diastolic Pressure", lastDia.getTimestamp());
+                return factory.createAlert(String.valueOf(patientId), "Critical Diastolic Pressure", lastDia.getTimestamp());
             }
         }
         return null;
@@ -63,12 +67,12 @@ public class BloodPressureStrategy implements AlertStrategy {
 
         // Check increasing trend
         if ((v2 - v1 > 10) && (v3 - v2 > 10)) {
-            return new Alert(String.valueOf(patientId), "Increasing " + type + " Trend", r3.getTimestamp());
+            return factory.createAlert(String.valueOf(patientId), "Increasing " + type + " Trend", r3.getTimestamp());
         }
 
         // Check decreasing trend
         if ((v1 - v2 > 10) && (v2 - v3 > 10)) {
-            return new Alert(String.valueOf(patientId), "Decreasing " + type + " Trend", r3.getTimestamp());
+            return factory.createAlert(String.valueOf(patientId), "Decreasing " + type + " Trend", r3.getTimestamp());
         }
 
         return null;

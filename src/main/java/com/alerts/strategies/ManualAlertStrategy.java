@@ -1,6 +1,7 @@
 package com.alerts.strategies;
 
 import com.alerts.Alert;
+import com.alerts.BasicAlert;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
@@ -21,7 +22,7 @@ public class ManualAlertStrategy implements AlertStrategy {
         
         // HealthDataSimulator outputs 1.0 for "triggered" and 0.0 for "resolved" (handled in our FileDataReader)
         if (lastRecord.getMeasurementValue() == 1.0) {
-            return new Alert(String.valueOf(patient.getPatientId()), "Manual Alert Triggered", lastRecord.getTimestamp());
+            return new BasicAlert(String.valueOf(patient.getPatientId()), "Manual Alert Triggered", lastRecord.getTimestamp());
         }
 
         return null;

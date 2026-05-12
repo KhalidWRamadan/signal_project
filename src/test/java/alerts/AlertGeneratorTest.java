@@ -11,7 +11,7 @@ class AlertGeneratorTest {
 
     @Test
     void testEvaluateDataTriggersAlert() {
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getInstance();
         storage.addPatientData(1, 185.0, "SystolicPressure", 1000L); // Should trigger critical BP alert
 
         Patient patient = storage.getAllPatients().get(0);

@@ -1,12 +1,16 @@
 package com.alerts.strategies;
 
 import com.alerts.Alert;
+import com.alerts.factories.AlertFactory;
+import com.alerts.factories.BloodOxygenAlertFactory;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 import java.util.List;
 
 public class HypotensiveHypoxemiaStrategy implements AlertStrategy {
+
+    private AlertFactory factory = new BloodOxygenAlertFactory();
 
     @Override
     public Alert checkAlert(Patient patient) {
@@ -30,7 +34,7 @@ public class HypotensiveHypoxemiaStrategy implements AlertStrategy {
         // Check if both readings are critical and roughly taken around the same time
         if (lastSys.getMeasurementValue() < 90.0 && lastSat.getMeasurementValue() < 92.0) {
             long maxTime = Math.max(lastSys.getTimestamp(), lastSat.getTimestamp());
-            return new Alert(String.valueOf(patient.getPatientId()), "Hypotensive Hypoxemia", maxTime);
+            return factory.createAlert(String.valueOf(patient.getPatientId()), "Hypotensive Hypoxemia", maxTime);
         }
 
         return null;

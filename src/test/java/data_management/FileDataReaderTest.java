@@ -16,7 +16,7 @@ class FileDataReaderTest {
 
     @Test
     void testReadDataFromFile() throws IOException {
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getInstance();
         
         // Create a temporary test directory
         File tempDir = new File("test_output");
@@ -54,7 +54,7 @@ class FileDataReaderTest {
     void testDirectoryDoesNotExist() {
         FileDataReader reader = new FileDataReader("non_existent_directory_for_test");
         assertThrows(IOException.class, () -> {
-            reader.readData(new DataStorage());
+            reader.readData(DataStorage.getInstance());
         });
     }
 }

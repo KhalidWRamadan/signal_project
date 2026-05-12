@@ -1,12 +1,16 @@
 package com.alerts.strategies;
 
 import com.alerts.Alert;
+import com.alerts.factories.AlertFactory;
+import com.alerts.factories.BloodOxygenAlertFactory;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 import java.util.List;
 
 public class BloodSaturationStrategy implements AlertStrategy {
+
+    private AlertFactory factory = new BloodOxygenAlertFactory();
 
     @Override
     public Alert checkAlert(Patient patient) {
@@ -20,7 +24,7 @@ public class BloodSaturationStrategy implements AlertStrategy {
         // Check Low Saturation
         PatientRecord lastRecord = saturationRecords.get(saturationRecords.size() - 1);
         if (lastRecord.getMeasurementValue() < 92.0) {
-            return new Alert(String.valueOf(patient.getPatientId()), "Low Saturation", lastRecord.getTimestamp());
+            return factory.createAlert(String.valueOf(patient.getPatientId()), "Low Saturation", lastRecord.getTimestamp());
         }
 
         // Check Rapid Drop (5% or more within 10 minutes)
@@ -33,7 +37,7 @@ public class BloodSaturationStrategy implements AlertStrategy {
                 break; // Outside the 10-minute window
             }
             if (historical.getMeasurementValue() - lastRecord.getMeasurementValue() >= 5.0) {
-                return new Alert(String.valueOf(patient.getPatientId()), "Rapid Saturation Drop", currentTime);
+                return factory.createAlert(String.valueOf(patient.getPatientId()), "Rapid Saturation Drop", currentTime);
             }
         }
 
